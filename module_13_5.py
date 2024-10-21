@@ -24,12 +24,13 @@ class UserState(StatesGroup):
 
 @dp.message_handler(commands='start')
 async def start(message):
-    await message.answer('Привет', reply_markup=kb)
+    await message.answer('Здравствуйте.')
+    await message.answer('Я бот, который расчитает для Вас необходимое количество калорий в сутки.', reply_markup=kb)
+    await message.answer('Для расчета или получения информации воспользуйтесь кнопками внизу экрана.')
 
 
 @dp.message_handler(text='Информация')
 async def info(message):
-    await message.answer('Здравствуйте.')
     await message.answer('Я бот, который расчитает для Вас необходимое количество калорий в сутки.')
 
 
