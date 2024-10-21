@@ -15,10 +15,16 @@ class UserState(StatesGroup):
     weight = State()    # Вес
 
 
-@dp.message_handler(text='Cal')
+@dp.message_handler(commands=['start'])
 async def set_name(message):
     await message.answer('Здравствуйте.')
     await message.answer('Я бот, который расчитает для Вас необходимое количество калорий в сутки.')
+    await message.answer('Для того, чтобы рассчитать норму калорий введите "Calories" .')
+
+
+@dp.message_handler(text=['Calories', 'calories', 'CALORIES', 'cal'])
+async def set_name(message):
+    await message.answer('Начнем.')
     await message.answer('Сообщите пожалуйста свое имя.')
     await UserState.name.set()
 
@@ -61,4 +67,3 @@ async def send_calories(message, state):
 
 if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True)
-
