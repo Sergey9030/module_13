@@ -27,19 +27,21 @@ class UserState(StatesGroup):
     growth = State()    # Рост
     weight = State()    # Вес
 
+
+@dp.message_handler(commands='start')
+async def start(message):
+    await message.answer('Здравствуйте.')
+    await message.answer('Я бот, который расчитает для Вас необходимое количество калорий в сутки.', reply_markup=kb)
+    await message.answer('Для начала расчета или получения информации воспользуйтесь кнопками внизу экрана.')
+
+
 @dp.message_handler(text='Рассчитать')
 async def main_menu(message):
     await message.answer('Выберите опцию', reply_markup=ikb)
 
 
-@dp.message_handler(commands='start')
-async def start(message):
-    await message.answer('Привет', reply_markup=kb)
-
-
 @dp.message_handler(text='Информация')
 async def info(message):
-    await message.answer('Здравствуйте.')
     await message.answer('Я бот, который расчитает для Вас необходимое количество калорий в сутки.')
 
 @dp.callback_query_handler(text='formulas')
@@ -60,7 +62,7 @@ async def set_age(message, state):
     await state.update_data(name=message.text)
     data = await state.get_data()
     await message.answer(f'Здравствуйте {data["name"]}')
-    await message.answer('Сообщите свой возраст (лет).')
+    await message.answer('Сообщите свой возраст (от 1 до 200 лет).')
     await UserState.age.set()
 
 
@@ -69,7 +71,7 @@ async def set_growth(message, state):
     await state.update_data(age=int(message.text))
     data = await state.get_data()
     await message.answer(f'{data["name"]}, {data["age"]}лет.')
-    await message.answer('Сообщите свой вес (кг).')
+    await message.answer('Сообщите свой вес (от 1 до 300кг).')
     await UserState.growth.set()
 
 
@@ -78,7 +80,7 @@ async def set_weight(message, state):
     await state.update_data(growth=int(message.text))
     data = await state.get_data()
     await message.answer(f'{data["name"]}, {data["age"]}лет, {data["growth"]}кг.')
-    await message.answer('Сообщите свой рост (см).')
+    await message.answer('Сообщите свой рост (от 1 до 300 см).')
     await UserState.weight.set()
 
 
