@@ -22,7 +22,7 @@ async def set_name(message):
     await message.answer('Для того, чтобы рассчитать норму калорий введите "Calories" .')
 
 
-@dp.message_handler(text=['Calories', 'calories', 'CALORIES', 'cal'])
+@dp.message_handler(text=['Calories', 'calories', 'CALORIES', 'cal', 'Cal'])
 async def set_name(message):
     await message.answer('Начнем.')
     await message.answer('Сообщите пожалуйста свое имя.')
